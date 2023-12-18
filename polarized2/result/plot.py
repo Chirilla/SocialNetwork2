@@ -78,12 +78,13 @@ for dataset in DName.keys():
     for x in dnames:
         if dataset in Sizes[x]:X[x] = Sizes[x][dataset][0]
     df = pd.DataFrame(X)
-    plt.figure(figsize=(180,100))
-    ax = boxplot = df.boxplot(return_type='axes', grid=False)
+    plt.figure(figsize=(180,30))
+    ax = boxplot = df.boxplot(return_type='axes', grid=False, fontsize=100)
     ax.set_yscale('log')
-    ax.set_ylabel('$|S_t|$')
-    plt.title('[{}] Detected Group Size'.format(DName[dataset]))
+    ax.set_ylabel('$|S_t|$',fontsize=100)
+    plt.title('[{}] Detected Group Size'.format(DName[dataset]), fontsize=100)
     plt.savefig('{}/compare_groupsize_{}.pdf'.format(opt.output_dir, DName[dataset]))
+
 
 ################################ Modified SBM Experiment ################################
 F1Scores, F1Std, Polarity, PolarityStd,DisRatio, DisRatioStd = {},{},{},{},{},{}
