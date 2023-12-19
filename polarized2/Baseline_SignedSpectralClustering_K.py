@@ -1,6 +1,6 @@
 from signet.cluster import Cluster
 from scipy.sparse import eye
-from utility import *
+from utility1 import *
 import time
 
 """
