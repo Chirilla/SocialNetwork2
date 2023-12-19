@@ -111,17 +111,6 @@ def check_result_KCG(C, Y, A, N, K, run_time):
         In_p = ((np.abs(A)+A)/2.0).multiply(X[:,k]*(X[:,k].T)).sum()
         Out_n = ((np.abs(A)-A)/2.0).multiply((X[:,:k-1].sum(axis=1)+X[:,k+1:].sum(axis=1))*(X[:,k].T)).sum()
         Out_p = ((np.abs(A)+A)/2.0).multiply((X[:,:k-1].sum(axis=1)+X[:,k+1:].sum(axis=1))*(X[:,k].T)).sum()
-        print("I nodi del cluster sono: ")
-        n=cluster_nodes(N, nk, k ,C)
-        print(n)
-        print('Gli archi negativi che collegano il cluster agli altri cluster sono: ')
-        x=((np.abs(A)-A)/2.0)-((np.abs(A)-A)/2.0).multiply((X[:,:k-1].sum(axis=1)+X[:,k+1:].sum(axis=1))*(X[:,k].T))
-        print_cluster_edges(x, k, n, C, N)
-        print(' ')
-        print('Gli archi positivi che collegano il cluster agli altri cluster sono: ')
-        x=((np.abs(A)+A)/2.0).multiply((X[:,:k-1].sum(axis=1)+X[:,k+1:].sum(axis=1))*(X[:,k].T))
-        print_cluster_edges(x, k, n, C, N)
-        print(' ')
         print('|S_{}|={:.0f}, |In_+|-|In_-|={:.0f}-{:.0f}, |Out_-|-|Out_+|={:.0f}-{:.0f}'.format(
             k+1, nk, In_p, In_n, Out_n, Out_p
         ))
@@ -133,23 +122,6 @@ def check_result_KCG(C, Y, A, N, K, run_time):
     print('|S_0|={:.0f} // neutral'.format(N-X.sum()))
     print('Total: |S_1|+...+|S_K|={:.0f}, |In_+|-|In_-|={:.0f}, |Out_+|-|Out_-|={:.0f}'.format(X.sum(), n_in, n_out))
     print('---------------------------')
-
-def print_cluster_edges(x, k, nodes, C, N):
-  cx=sp.coo_matrix(x)
-  for i,j,v in zip(cx.row, cx.col, cx.data):
-    for m in nodes:
-      for n in range(N):
-        if(i==m and C[n]!=k and C[n]!=-1 and j==n):
-          print('[('+str(i)+','+str(j)+'), cluster: '+str(C[n])+']',end=' ')
-
-def cluster_nodes(N, nk, k ,C):
-  n=np.zeros(int(nk),dtype='int')
-  a=0
-  for i in range(N):
-    if C[i]== int(k)+1:
-      n[a]=i
-      a=a+1
-  return n
 
 def compute_accuracy(C, nC, K, EPS=1E-10):
     """ compute accuracy of the SBM model """
