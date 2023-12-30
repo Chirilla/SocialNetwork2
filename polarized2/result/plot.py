@@ -25,7 +25,7 @@ opt = parse_arg()
 if not os.path.exists(opt.output_dir):
     os.makedirs(opt.output_dir)
 ################################ Real-World Experiment ################################
-for k in [2,6]:
+for k in [3,6,9,15]:
     print('############### [K={}] ###############'.format(k))
     for method,fname in zip(
         ['SCG-MA','SCG-MO','SCG-B','SCG-R','BNC-k','BNC-(k+1)','SPONGE-k','SPONGE-(k+1)'],
